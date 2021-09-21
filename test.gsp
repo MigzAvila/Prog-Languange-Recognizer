@@ -418,9 +418,9 @@ public class recognizer {
         {
           currentCmd = currentCmd + hBar + "; "
           if(!commingToEnd)
-            print("\nto " + finalResult + hBar + "; " + stdVar + " end")
+            print("to " + finalResult + hBar + "; " + stdVar + " end")
           else
-            print("\nto " + finalResult + hBar + " end")
+            print("to " + finalResult + hBar + " end")
           var simpleCounter = 0
           var tempVal = "; <plot_cmd> "
           if(value[counter+2] == "end")
@@ -444,9 +444,9 @@ public class recognizer {
         {
           currentCmd = currentCmd + vBar + "; "
           if(!commingToEnd)
-            print("\nto " + finalResult + vBar + "; " + stdVar + " end")
+            print("to " + finalResult + vBar + "; " + stdVar + " end")
           else
-            print("\nto " + finalResult + vBar + " end")
+            print("to " + finalResult + vBar + " end")
           var simpleCounter = 0
           var tempVal = "; <plot_cmd> "
           if(value[counter+2] == "end")
@@ -472,9 +472,9 @@ public class recognizer {
           currentCmd = currentCmd + fill + "; "
 
           if(!commingToEnd)
-            print("\nto " + finalResult + fill + "; " + stdVar + " end")
+            print("to " + finalResult + fill + "; " + stdVar + " end")
           else
-            print("\nto " + finalResult + fill + " end")
+            print("to " + finalResult + fill + " end")
           var simpleCounter = 0
           var tempVal = "; <plot_cmd> "
           if(value[counter+2] == "end")
@@ -505,7 +505,7 @@ public class recognizer {
 
     }
 
-    System.out.print("\nto " + finalResult + " end")
+    System.out.print("to " + finalResult + " end \n\n\n")
 
   }
 }
@@ -537,23 +537,44 @@ var result = false
 if(str !=  "STOP" )
 {
   result = f.MAIN(str)
-  f.print(str.split("\\s"))
+  if(result)
+    f.print(str.split("\\s"))
 }
 
 
-while (!result && str !=  "STOP" )
+while (str !=  "STOP" )
 {
 
-  print("\n You enter wrong syntax: ")
-  print("\nCommand Input: " + str)
-  print("\n\nYou must input some like the following ")
-  print(program + "\n")
+//  if(!result)
+//  {
+//    print("\n You enter wrong syntax: ")
+//    print("\nCommand Input: " + str)
+//    print("\n\nYou must input some like the following ")
+//    print(program + "\n")
+//    print(plot_cmd)
+//    print(cmd + "\n")
+//    print(x)
+//    print(y + "\n")
+//    print(good_exm + "\n")
+//    print(bad_exm + "\n")
+//  }
+//  else
+//  {
+//    print("Would you like to continue? ")
+//
+//
+//  }
+
+  print("Enter STOP to stop the program or a string to continue using the program. :) \n")
+  print(program)
   print(plot_cmd)
   print(cmd + "\n")
   print(x)
   print(y + "\n")
-  print(good_exm + "\n")
+  print(good_exm)
   print(bad_exm + "\n")
+
+
   prevHasSemiColon = true
   errorForNum = false
   passesValidation = true
