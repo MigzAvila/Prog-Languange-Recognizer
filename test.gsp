@@ -470,15 +470,26 @@ public class recognizer {
         case "fill":
         {
           currentCmd = currentCmd + fill + "; "
-          //print(currentCmd)
-          var simpleCounter = 0
-          print("to fill " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + " end")
-          simpleCounter ++
-          print("to fill " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + " end")
-          if ( value[counter + 2] == "end")
-            finalResult = finalResult + " fill " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter)
+
+          if(!commingToEnd)
+            print("\nto " + finalResult + fill + "; " + stdVar + " end")
           else
-            finalResult = finalResult + " fill " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "; "
+            print("\nto " + finalResult + fill + " end")
+          var simpleCounter = 0
+          var tempVal = "; <plot_cmd> "
+          if(value[counter+2] == "end")
+          {
+            tempVal = ""
+          }
+
+          print("to " + finalResult + "fill " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + tempVal + " end")
+          simpleCounter ++
+          print("to " + finalResult + "fill "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + tempVal + " end")
+          simpleCounter ++
+          if ( value[counter + 2] == "end")
+            finalResult = finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1)
+          else
+            finalResult = finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "; "
         }
         break
         default:
