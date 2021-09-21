@@ -2,9 +2,6 @@ uses java.io.InputStreamReader
 uses java.util.Scanner
 uses java.lang.System
 uses java.util.*
-uses java.util.Arrays;
-uses java.util.stream.Collectors;
-uses java.util.stream.IntStream
 
 
 //displaying the prog regcon. Gobal Var so that is accesseble in the main/bottom code
@@ -57,6 +54,7 @@ public class recognizer {
         if (count + 1 <= plot_Cmd.length) {
           var current = {plot_Cmd[count], plot_Cmd[count + 1]}
           var plotcmd = current.toTypedArray()
+          //validates single command
           var res = validates_cmd(plotcmd)
         }
 
@@ -71,7 +69,7 @@ public class recognizer {
           var hold = true
           count = 2
 
-          //loop for 2 in a single loop - passes <plot_cmd> with <cmd> <cmd> to check if numbers <x> and <y> are valid
+          //loop for 2 in a single loop - passes <plot_cmd> with <cmd> <values> to check if numbers <x> and <y> are valid
           while (count + 1 < plot_Cmd.length && hold) {
             //checks that next value exists in array plot_cmd
             if (count + 1 <= plot_Cmd.length - 1) {
@@ -100,7 +98,26 @@ public class recognizer {
         }
         //return true/false based on the
         return passesValidation
-      } else {
+      } else if (breaksProgram)
+      {
+        return false
+      }
+      else if (plot_Cmd.length < 4)
+      {
+        print("Error! ")
+        print("Incomplete program Statement: ")
+        print(joinInput)
+        print("Accepted program Statement as follow: ")
+        print(program)
+        print(cmd)
+        print(x)
+        print(y)
+        print(good_exm + "\n")
+        passesValidation = false
+        return false
+      }
+      else
+      {
         print("Error! ")
         print("You State a semi colon, Yet no next <plot_cmd> was found ")
         print(plot_Cmd[plot_Cmd.length - 1])
@@ -348,6 +365,11 @@ public class recognizer {
   }
 
   function print(value : String[]) : void {
+    //list.removeAll(Arrays.asList("",
+    // way one
+    //value.removeAll(Arrays.asList("", null));
+    //value.remove("");
+
     var val = value
     //removing the length -1 and removeing the count of to & end
     var counter = 1
@@ -374,7 +396,7 @@ public class recognizer {
 
       if(!reachEnd)
       {
-        if (currentValues.isEmpty())
+        if (currentValues.isEmpty() )
         {
           System.out.print("to " + finalResult + stdVar + " end \n")
 
@@ -389,15 +411,22 @@ public class recognizer {
 
           currentCmdValues = currentCmdValues + ";" + singleCmd
         }
+        var temp = 0
+        if(value[counter + 2].isEmpty() )
+          temp = 1
+        if(value[counter + temp + 2] == "end" || value[counter + 2].isEmpty() )
+        {
+          commingToEnd = true
+        }
 
-        if (finalResult.isEmpty())
+        if (finalResult.isEmpty() && arrayLength > 5)
         {
           System.out.print("to " + finalResult + singleCmd + "; " + stdVar + " end \n")
         }
 
         else
         {
-          if( value[counter + 2] != "end")
+          if( value[counter + 2] != "end" && !commingToEnd && arrayLength > 5)
           {
             System.out.print("to " + finalResult + singleCmd + "; " + stdVar + " end \n")
           }
@@ -416,24 +445,33 @@ public class recognizer {
       {
         case "hbar":
         {
+          var tempy = 0
+          var tempVal = "; <plot_cmd> "
+
+          if(value[counter + 2].isEmpty() )
+            tempy = 1
+          if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )
+          {
+            tempVal = ""
+            commingToEnd = true
+          }
+
           currentCmd = currentCmd + hBar + "; "
           if(!commingToEnd)
             print("to " + finalResult + hBar + "; " + stdVar + " end")
           else
             print("to " + finalResult + hBar + " end")
           var simpleCounter = 0
-          var tempVal = "; <plot_cmd> "
-          if(value[counter+2] == "end")
-          {
-            tempVal = ""
-          }
+
+
+
 
             print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[0] + tempVal + " end")
           simpleCounter ++
             print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[0] + tempVal + " end")
           simpleCounter ++
             print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1)  + tempVal + " end")
-          if ( value[counter + 2] == "end")
+          if ( value[counter + 2] == "end" || commingToEnd)
             finalResult = finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1) + " "
           else
             finalResult = finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1) + "; "
@@ -442,17 +480,30 @@ public class recognizer {
         break
         case "vbar":
         {
+          var tempy = 0
+          var tempVal = "; <plot_cmd> "
+
+          if(value[counter+2].isEmpty())
+            tempy = 1
+
+
+          if(value[counter + tempy + 2] == "end")
+          {
+            tempVal = ""
+            commingToEnd = true
+          }
+
           currentCmd = currentCmd + vBar + "; "
+
           if(!commingToEnd)
             print("to " + finalResult + vBar + "; " + stdVar + " end")
           else
             print("to " + finalResult + vBar + " end")
           var simpleCounter = 0
-          var tempVal = "; <plot_cmd> "
-          if(value[counter+2] == "end")
-          {
-            tempVal = ""
-          }
+
+
+
+
 
 
           print("to " + finalResult + "vbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[1] + tempVal + " end")
@@ -460,7 +511,7 @@ public class recognizer {
           print("to " + finalResult + "vbar "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[1] + tempVal + " end")
           simpleCounter ++
           print("to " + finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + tempVal + " end")
-          if ( value[counter + 2] == "end")
+          if ( value[counter + 2] == "end" || commingToEnd)
             finalResult = finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1)
           else
             finalResult = finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + "; "
@@ -469,14 +520,26 @@ public class recognizer {
         break
         case "fill":
         {
+          var tempy =0
+          var simpleCounter = 0
+          var tempVal = "; <plot_cmd> "
+
+          if(value[counter+2].isEmpty())
+            tempy = 1
+
+          if(value[counter + tempy + 2] == "end")
+          {
+            tempVal = ""
+            commingToEnd = true
+          }
+
           currentCmd = currentCmd + fill + "; "
 
           if(!commingToEnd)
             print("to " + finalResult + fill + "; " + stdVar + " end")
           else
             print("to " + finalResult + fill + " end")
-          var simpleCounter = 0
-          var tempVal = "; <plot_cmd> "
+
           if(value[counter+2] == "end")
           {
             tempVal = ""
@@ -486,7 +549,7 @@ public class recognizer {
           simpleCounter ++
           print("to " + finalResult + "fill "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + tempVal + " end")
           simpleCounter ++
-          if ( value[counter + 2] == "end")
+          if ( value[counter + 2] == "end" || commingToEnd)
             finalResult = finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1)
           else
             finalResult = finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "; "
@@ -496,6 +559,10 @@ public class recognizer {
           print("")
       }
 
+      if(value[counter+2].isEmpty())
+      {
+        counter++
+      }
 
       counter = counter + 2
       if ((counter + 1) == arrayLength || value[counter] == "end")
