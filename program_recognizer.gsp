@@ -12,7 +12,7 @@ var x = "x: 1 | 2 | 3 | 4 | 5 | 6 | 7"
 var y = "y: 1 | 2 | 3 | 4 | 5 | 6 | 7"
 
 var good_exm = "Examples of accepted string: 'to vbar 43,1; fill 22 end' -- without quotes"
-var bad_exm = "Examples of bad string: 'to vbar 93,1; fill 22 end' ERROR: x coord 9 not valid -- without quotes"
+var bad_exm = "Examples of bad string: 'to vbar 93,1; fill 22 end' ERROR: x coord 9 not valid "
 var prevHasSemiColon = true
 var errorForNum = false
 var passesValidation = true
@@ -113,6 +113,7 @@ public class recognizer {
         print(x)
         print(y)
         print(good_exm + "\n")
+        print("\n\n\n\n\n")
         passesValidation = false
         return false
       }
@@ -121,6 +122,7 @@ public class recognizer {
         print("Error! ")
         print("You State a semi colon, Yet no next <plot_cmd> was found ")
         print(plot_Cmd[plot_Cmd.length - 1])
+        print("\n\n\n\n\n")
         return false
       }
     } else {
@@ -143,6 +145,7 @@ public class recognizer {
       print("Valid chart input: to <plot_cmd> end ")
       breaksProgram = true
       passesValidation = false
+      print("\n\n\n\n\n")
       return false
     }
   }
@@ -179,6 +182,7 @@ public class recognizer {
               breaksProgram = true
               passesValidation = false
               errorForNum = true
+              print("\n\n\n\n\n")
               return false
             }
 
@@ -194,6 +198,7 @@ public class recognizer {
             breaksProgram = true
             passesValidation = false
             errorForNum = true
+            print("\n\n\n\n\n")
             return false
           }
 
@@ -211,6 +216,7 @@ public class recognizer {
           breaksProgram = true
           passesValidation = false
           errorForNum = true
+          print("\n\n\n\n\n")
           return false
         }
       } else {
@@ -225,12 +231,13 @@ public class recognizer {
         breaksProgram = true
         passesValidation = false
         errorForNum = true
+        print("\n\n\n\n\n")
         return false
       }
     }
     //checks if firstVal is fill
     else if (firstVal.toLowerCase() == "fill") {
-      if (counter > 1 && counter < 4) {
+      if (counter > 1 && counter < 3) {
         //check that x and y are from 1 - 7
         if (holder.charAt(0) == '1' || holder.charAt(0) == '2' || holder.charAt(0) == '3' || holder.charAt(0) == '4' || holder.charAt(0) == '5' || holder.charAt(0) == '6' || holder.charAt(0) == '7') {
 
@@ -249,6 +256,7 @@ public class recognizer {
             breaksProgram = true
             passesValidation = false
             errorForNum = true
+            print("\n\n\n\n\n")
             return false
           }
 
@@ -267,6 +275,7 @@ public class recognizer {
           breaksProgram = true
           passesValidation = false
           errorForNum = true
+          print("\n\n\n\n\n")
           return false
         }
       } else {
@@ -280,6 +289,7 @@ public class recognizer {
         breaksProgram = true
         passesValidation = false
         errorForNum = true
+        print("\n\n\n\n\n")
         return false
       }
 
@@ -296,6 +306,7 @@ public class recognizer {
       breaksProgram = true
       passesValidation = false
       errorForNum = true
+      print("\n\n\n\n\n")
       return false
     }
   }
@@ -357,6 +368,7 @@ public class recognizer {
         print("\n              | fill <x><y> ")
         breaksProgram = true
         passesValidation = false
+        print("\n\n\n\n\n")
         return false
       }
     }
@@ -365,19 +377,12 @@ public class recognizer {
   }
 
   function print(value : String[]) : void {
-    //list.removeAll(Arrays.asList("",
-    // way one
-    //value.removeAll(Arrays.asList("", null));
-    //value.remove("");
-
+    print("Printing Derevation ")
     var val = value
     //removing the length -1 and removeing the count of to & end
     var counter = 1
     var arrayLength = value.length
-    //print("to <plot_cmd> end : " + value[0] + "  "  + arrayLength)
     var len = value.length - 1
-    //var send = {val[1].toString(), val[2].toString()}
-    //validates_cmd check for hbar vbar and fill
     var reachEnd = false
     var stdVar = "<plot_cmd>"
     var singleCmd = "<cmd>"
@@ -463,9 +468,6 @@ public class recognizer {
             print("to " + finalResult + hBar + " end")
           var simpleCounter = 0
 
-
-
-
             print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[0] + tempVal + " end")
           simpleCounter ++
             print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[0] + tempVal + " end")
@@ -500,11 +502,6 @@ public class recognizer {
           else
             print("to " + finalResult + vBar + " end")
           var simpleCounter = 0
-
-
-
-
-
 
           print("to " + finalResult + "vbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[1] + tempVal + " end")
           simpleCounter ++
@@ -572,7 +569,7 @@ public class recognizer {
 
     }
 
-    System.out.print("to " + finalResult + " end \n\n\n")
+    System.out.print("\n\n")
 
   }
 }
@@ -611,26 +608,20 @@ if(str !=  "STOP" )
 
 while (str !=  "STOP" )
 {
-
-//  if(!result)
-//  {
-//    print("\n You enter wrong syntax: ")
-//    print("\nCommand Input: " + str)
-//    print("\n\nYou must input some like the following ")
-//    print(program + "\n")
-//    print(plot_cmd)
-//    print(cmd + "\n")
-//    print(x)
-//    print(y + "\n")
-//    print(good_exm + "\n")
-//    print(bad_exm + "\n")
-//  }
-//  else
-//  {
-//    print("Would you like to continue? ")
-//
-//
-//  }
+  if (isWhiteSpace.length < 4)
+  {
+    print("\n\n")
+    print("Error! ")
+    print("Incomplete program Statement: ")
+    print(str)
+    print("Accepted program Statement as follow: ")
+    print(program)
+    print(cmd)
+    print(x)
+    print(y)
+    print(good_exm + "\n")
+    print("\n\n\n")
+  }
 
   print("Enter STOP to stop the program or a string to continue using the program. :) \n")
   print(program)
@@ -650,8 +641,9 @@ while (str !=  "STOP" )
   print("Your Turn Now: \n")
   str= sc.nextLine();              //reads string
   isWhiteSpace = str.split(" ")
-  if (str !=  "STOP" && isWhiteSpace.length != 0) {
+  if (str !=  "STOP" || isWhiteSpace.length != 0) {
     result = f.MAIN(str)
+    print("\n\n")
     if(result)
     f.print(str.split("\\s"))
 
