@@ -572,7 +572,210 @@ public class recognizer {
     System.out.print("\n\n")
 
   }
+
+
+    function parse_tree(value : String[]) : void {
+      print("Printing Derevation ")
+      //removing the length -1 and removeing the count of to & end
+      var counter = 1
+      var arrayLength = value.length
+      var len = value.length - 1
+      var reachEnd = false
+      var stdVar = "<plot_cmd>"
+      var singleCmd = "<cmd>"
+      var currentValues = ""
+      var currentCmd = " "
+      var currentCmdValues = ""
+      var holdersOfValues = {"<x>","<y>"}
+
+      var vBar = "vbar <x><y>,<y>"
+      var hBar = "hbar <x><y>,<x>"
+      var fill = "fill <x><y>"
+      var finalResult = ""
+      var commingToEnd = false
+
+      while (counter < arrayLength && !reachEnd ) {
+
+        if(!reachEnd)
+        {
+          if (currentValues.isEmpty() )
+          {
+            System.out.print("  <program>      \n")
+            System.out.print("  /     |    \\ \n")
+            System.out.print("to " + finalResult + stdVar + " end \n")
+
+            currentValues = singleCmd
+            currentCmdValues = singleCmd
+
+          }
+
+          else if (value[counter + 2] != "end")
+          {
+            currentValues = currentValues + ";" + singleCmd //check here
+
+            currentCmdValues = currentCmdValues + ";" + singleCmd
+          }
+          var temp = 0
+          if(value[counter + 2].isEmpty() )
+            temp = 1
+          if(value[counter + temp + 2] == "end" || value[counter + 2].isEmpty() )
+          {
+            commingToEnd = true
+          }
+
+          if (finalResult.isEmpty() && arrayLength > 5)
+          {
+            System.out.print("  /     /   \  \\ \n")
+            System.out.print("to " + finalResult + singleCmd + "; " + stdVar + " end \n")
+          }
+
+          else
+          {
+            if( value[counter + 2] != "end" && !commingToEnd && arrayLength > 5)
+            {
+              System.out.print("  /     /   \  \\ \n")
+              System.out.print("to " + finalResult + singleCmd + "; " + stdVar + " end \n")
+            }
+
+            else
+            {
+              System.out.print("  /     |  \\ \n")
+              commingToEnd = true
+              System.out.print("to " + finalResult + singleCmd + " end \n")
+            }
+
+          }
+
+
+        }
+        switch (value[counter])
+        {
+          case "hbar":
+          {
+            var tempy = 0
+            var tempVal = "; <plot_cmd> "
+
+            if(value[counter + 2].isEmpty() )
+              tempy = 1
+            if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )
+            {
+              tempVal = ""
+              commingToEnd = true
+            }
+
+            currentCmd = currentCmd + hBar + "; "
+            if(!commingToEnd)
+              print("to " + finalResult + hBar + "; " + stdVar + " end")
+            else
+              print("to " + finalResult + hBar + " end")
+            var simpleCounter = 0
+
+            print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[0] + tempVal + " end")
+            simpleCounter ++
+            print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[0] + tempVal + " end")
+            simpleCounter ++
+            print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1)  + tempVal + " end")
+            if ( value[counter + 2] == "end" || commingToEnd)
+              finalResult = finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1) + " "
+            else
+              finalResult = finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1) + "; "
+
+          }
+          break
+          case "vbar":
+          {
+            var tempy = 0
+            var tempVal = "; <plot_cmd> "
+
+            if(value[counter+2].isEmpty())
+              tempy = 1
+
+
+            if(value[counter + tempy + 2] == "end")
+            {
+              tempVal = ""
+              commingToEnd = true
+            }
+
+            currentCmd = currentCmd + vBar + "; "
+
+            if(!commingToEnd)
+              print("to " + finalResult + vBar + "; " + stdVar + " end")
+            else
+              print("to " + finalResult + vBar + " end")
+            var simpleCounter = 0
+
+            print("to " + finalResult + "vbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[1] + tempVal + " end")
+            simpleCounter ++
+            print("to " + finalResult + "vbar "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[1] + tempVal + " end")
+            simpleCounter ++
+            print("to " + finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + tempVal + " end")
+            if ( value[counter + 2] == "end" || commingToEnd)
+              finalResult = finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1)
+            else
+              finalResult = finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + "; "
+          }
+
+          break
+          case "fill":
+          {
+            var tempy =0
+            var simpleCounter = 0
+            var tempVal = "; <plot_cmd> "
+
+            if(value[counter+2].isEmpty())
+              tempy = 1
+
+            if(value[counter + tempy + 2] == "end")
+            {
+              tempVal = ""
+              commingToEnd = true
+            }
+
+            currentCmd = currentCmd + fill + "; "
+
+            if(!commingToEnd)
+              print("to " + finalResult + fill + "; " + stdVar + " end")
+            else
+              print("to " + finalResult + fill + " end")
+
+            if(value[counter+2] == "end")
+            {
+              tempVal = ""
+            }
+
+            print("to " + finalResult + "fill " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + tempVal + " end")
+            simpleCounter ++
+            print("to " + finalResult + "fill "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + tempVal + " end")
+            simpleCounter ++
+            if ( value[counter + 2] == "end" || commingToEnd)
+              finalResult = finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1)
+            else
+              finalResult = finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "; "
+          }
+          break
+          default:
+            print("")
+        }
+
+        if(value[counter+2].isEmpty())
+        {
+          counter++
+        }
+
+        counter = counter + 2
+        if ((counter + 1) == arrayLength || value[counter] == "end")
+        {
+          reachEnd = true
+        }
+
+      }
+
+      System.out.print("\n\n")
+
+    }
 }
+
 
 
 
@@ -602,7 +805,10 @@ if(str !=  "STOP" )
 {
   result = f.MAIN(str)
   if(result)
+  {
     f.print(str.split("\\s"))
+    f.parse_tree(str.split("\\s"))
+  }
 }
 
 
@@ -645,7 +851,10 @@ while (str !=  "STOP" )
     result = f.MAIN(str)
     print("\n\n")
     if(result)
-    f.print(str.split("\\s"))
+    {
+      f.print(str.split("\\s"))
+      f.parse_tree(str.split("\\s"))
+    }
 
   }
 
