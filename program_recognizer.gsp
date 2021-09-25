@@ -936,18 +936,18 @@ var str= sc.nextLine();              //reads string
 var isWhiteSpace = str.split(" ")
 
 //create an instance of recognizer class
-var f = new recognizer()
+var program_recognizer = new recognizer()
 
 //call MAIN function
 //create a while loop ...
 var result = false
 if(str !=  "STOP" )
 {
-  result = f.MAIN(str)
+  result = program_recognizer.MAIN(str)
   if(result)
   {
-    f.print(str.split("\\s"))
-    f.parse_tree(str.split("\\s"))
+    program_recognizer.print(str.split("\\s"))
+    program_recognizer.parse_tree(str.split("\\s"))
   }
 }
 
@@ -988,12 +988,12 @@ while (str !=  "STOP" )
   str= sc.nextLine();              //reads string
   isWhiteSpace = str.split(" ")
   if (str !=  "STOP" || isWhiteSpace.length != 0) {
-    result = f.MAIN(str)
+    result = program_recognizer.MAIN(str)
     print("\n\n")
     if(result)
     {
-      f.print(str.split("\\s"))
-      f.parse_tree(str.split("\\s"))
+      program_recognizer.print(str.split("\\s"))
+      program_recognizer.parse_tree(str.split("\\s"))
     }
 
   }
