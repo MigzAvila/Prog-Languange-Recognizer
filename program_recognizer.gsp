@@ -483,11 +483,11 @@ public class recognizer {
           var tempy = 0
           var tempVal = "; <plot_cmd> "
 
-          if(value[counter + 2].isEmpty() )//chekck if it is empty and sets temp to 1
+          if(value[counter + 2].isEmpty() )//check if it is empty and sets temp to 1
             tempy = 1
-          if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )// check if it empty or == end
+          if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )// check if it == end
           {
-            tempVal = ""//so as to easer the ;plot_cmd since there is no front values to be evaluated
+            tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
             commingToEnd = true
           }
 
@@ -520,7 +520,7 @@ public class recognizer {
 
           if(value[counter + tempy + 2] == "end")// check for end
           {
-            tempVal = ""//so as to easer the ;plot_cmd since there is no front values to be evaluated
+            tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
             commingToEnd = true
           }
 
@@ -554,20 +554,20 @@ public class recognizer {
 
           if(value[counter + tempy + 2] == "end")// check for end
           {
-            tempVal = ""//so as to easer the ;plot_cmd since there is no front values to be evaluated
+            tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
             commingToEnd = true
           }
 
-          if(!commingToEnd)
-            print("to " + finalResult + fill + "; " + stdVar + " end")
+          if(!commingToEnd)// check if not coming to end
+            print("to " + finalResult + fill + "; " + stdVar + " end")//prints the finalResult with a fill and plot_cmd
           else
-            print("to " + finalResult + fill + " end")
+            print("to " + finalResult + fill + " end")//else just prints the finalResult with a vbar
 
-          if(value[counter+2] == "end")
+          if(value[counter+2] == "end")//check if currentState + 2 == end
           {
-            tempVal = ""
+            tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
           }
-
+          // print the cmd chart
           print("to " + finalResult + "fill " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + tempVal + " end")
           simpleCounter ++
           print("to " + finalResult + "fill "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + tempVal + " end")
@@ -581,14 +581,14 @@ public class recognizer {
         default:
           print("")
       }
-
+      //checks if currentvalues + 2 == ""
       if(value[counter+2].isEmpty())
       {
-        counter++
+        counter++//increments counter
       }
 
       counter = counter + 2
-      if ((counter + 1) == arrayLength || value[counter] == "end")
+      if ((counter + 1) == arrayLength || value[counter] == "end")//checks if values is end
       {
         reachEnd = true
       }
@@ -607,101 +607,103 @@ public class recognizer {
       //array size
       var arrayLength = value.length
 
-
+      //holds current value
       var currentValues = ""
-      var currentCmd = " "
-      var currentCmdValues = ""
 
+      //cmd to use for the derivation
       var holdersOfValues = {"<x>","<y>"}
       var stdVar = "<plot_cmd>"
       var singleCmd = "<cmd>"
       var vBar = "vbar <x><y>,<y>"
       var hBar = "hbar <x><y>,<x>"
       var fill = "fill <x><y>"
+
+      //holds current value
       var finalResult = ""
+
+      //holds current value
       var commingToEnd = false
       var reachEnd = false
 
+      //prints before reaching the 'end'
       while (counter < arrayLength && !reachEnd ) {
         var spacer = ""
-        var simpleSpacer = ""
-        if (counter > 1)
+        if (counter > 1)//if not reachend
         {
-          spacer = spacer + "\t"
-          simpleSpacer =  simpleSpacer + "\t"
+          spacer = spacer + "\t"//create spacer for the pare tree
         }
 
-        if(!reachEnd)
+        if(!reachEnd)//check if the cmd is near the end
         {
-          if (currentValues.isEmpty() )
+
+          if (currentValues.isEmpty() )// if the current value is empty prints the to programs and the following cmd plotcmd
           {
             print("    <program>     ")
             print("  /     |    \\ ")
             print("to " + finalResult + stdVar + " end ")
 
             currentValues = singleCmd
-            currentCmdValues = singleCmd
 
           }
 
-          else if (value[counter + 2] != "end")
+          else if (value[counter + 2] != "end")// else if the current value != to end
           {
+            //appends the single values to currentValues
             currentValues = currentValues + ";" + singleCmd //check here
 
-            currentCmdValues = currentCmdValues + ";" + singleCmd
           }
           var temp = 0
-          if(value[counter + 2].isEmpty() )
+          if(value[counter + 2].isEmpty() )//check if the current value is empty and if yes temp = 1, so as to skip that value
             temp = 1
 
-          if(value[counter + temp + 2] == "end" || value[counter + 2].isEmpty() )
+          if(value[counter + temp + 2] == "end" || value[counter + 2].isEmpty() )// if current value == end or it is empty
           {
             commingToEnd = true
           }
 
-          if (finalResult.isEmpty() && arrayLength > 5)
+          if (finalResult.isEmpty() && arrayLength > 5)//if final result and arry length is less than 5 then the output is printed
           {
             var c = counter
             var space = ""
-            while (c>1)
+            while (c>1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
             {
               space = space + "\t"
               c = c -2
             }
+            //printing the | following its next command
             System.out.print(space + "       |  \n")
-
             System.out.print(space + singleCmd + "; " + stdVar + "  \n")
-
             System.out.print(space + "  |  \n")
           }
 
           else
           {
-            if( value[counter + 2] != "end" && !commingToEnd && arrayLength > 5)
+            if( value[counter + 2] != "end" && !commingToEnd && arrayLength > 5)//if value counter +2 and arry length greater than 5 and not coming to end prints the cmd
             {
               var c = counter
               var space = ""
-              while (c>1)
+              while (c>1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
               {
                 space = space + "\t"
                 c = c -2
               }
+              //printing the /|\ following its next command
               System.out.print(space + "  / \n")
-
               System.out.print(space + singleCmd + "; " + stdVar + "\n")
               System.out.print(space + " |     \n")
             }
 
             else
             {
+              //else print current values plus a cmd only
               var c = counter
               var space = ""
-              while (c>1)
+              while (c>1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
               {
                 space = space + " \t "
                 c = c -2
               }
-
+              //printing the /|\ following its next command
               System.out.print(space + "     / \n")
               commingToEnd = true
               System.out.print(space + singleCmd + "\n")
@@ -711,36 +713,33 @@ public class recognizer {
           }
 
         }
-        switch (value[counter])
+        switch (value[counter])// checks  the current values for vbar | fill | hbar
         {
           case "hbar":
           {
             var tempy = 0
             var tempVal = "; <plot_cmd> "
 
-            if(value[counter + 2].isEmpty() )
+            if(value[counter + 2].isEmpty() )//check if it is empty and sets temp to 1
               tempy = 1
-            if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )
+            if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )// check if it empty or == end
             {
-              tempVal = ""
+              tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
               commingToEnd = true
             }
 
-            currentCmd = currentCmd + hBar + "; "
-
-
             var c = counter
-            if(!commingToEnd)
+            if(!commingToEnd)//check if the program is near the end
             {
 
               var space = ""
-              while (c > 1)
+              while (c > 1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
               {
                 space = space + "\t"
                 c = c-2
               }
-              System.out.print(space + hBar + "; " + stdVar + " \n")
-
+              //printing the /|\ following its next command
+              System.out.print(space + hBar + "; " + stdVar + " \n")//prints the hbar with a plot cmd
               System.out.print(space + "     / \n")
 
             }
@@ -749,35 +748,32 @@ public class recognizer {
             {
               c = counter
               var space = ""
-              while (c > 1)
+              while (c > 1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
               {
                 space = space + "\t"
                 c = c-2
               }
-              System.out.print( space + hBar + "\n")
-
+              //printing the /|\ following its next command
+              System.out.print( space + hBar + "\n")//prints the hbar
               System.out.print(space + "     / \n")
             }
             var simpleCounter = 0
 
             c = counter
             var space = ""
-            while (c > 1)
+            while (c > 1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
             {
               space = space + "\t"
               c = c-2
             }
+            //printing the /|\ following its next command
+
             System.out.print( space + "hbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[0] + tempVal + "\n")
             simpleCounter ++
-
-
             System.out.print(space + "       /\n")
-
             System.out.print(space + "hbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[0] + tempVal+ "\n")
             simpleCounter ++
-
             System.out.print(space + "         / \n")
-
             print(space + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + tempVal  )
             if ( value[counter + 2] == "end" || commingToEnd)
               finalResult = finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1) + " "
@@ -793,40 +789,37 @@ public class recognizer {
             var c = counter
             c = counter
             var space = ""
-            while (c > 1)
+            while (c > 1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
             {
               space = space  + " \t "
               c = c-2
             }
 
-            if(value[counter+2].isEmpty())
+            if(value[counter+2].isEmpty())//check if it is empty and sets temp to 1
               tempy = 1
 
 
-            if(value[counter + tempy + 2] == "end")
+            if(value[counter + tempy + 2] == "end")// check if it or == end
             {
-              tempVal = ""
+              tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
               commingToEnd = true
             }
 
-            currentCmd = currentCmd + vBar + "; "
-
             if(!commingToEnd)
             {
-
+              //printing the /|\ following its next command
               System.out.print(space + vBar + "; " + stdVar + "\n")
-
               System.out.print(space + "   | \n")
             }
             else {
+              //printing the /|\ following its next command
               System.out.print( space + vBar + "\n")
-
               System.out.print(space + "      / \n")
 
             }
             var simpleCounter = 0
 
-
+            //printing the /|\ following its next command
             System.out.print(space +  "vbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[1] + tempVal)
             simpleCounter ++
 
@@ -852,38 +845,37 @@ public class recognizer {
             var c = counter
 
 
-            if(value[counter+2].isEmpty())
+            if(value[counter+2].isEmpty())//check if it is empty and sets temp to 1
               tempy = 1
 
-            if(value[counter + tempy + 2] == "end")
+            if(value[counter + tempy + 2] == "end")// check if it  == end
             {
-              tempVal = ""
+              tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
               commingToEnd = true
             }
 
-            currentCmd = currentCmd + fill + "; "
             c = counter
             var space = ""
-            while (c > 1)
+            while (c > 1)//adds spacer as need, tab if one cmd has being process, 2 for 2 cmd process, etc
             {
               space = space + " \t "
               c = c-2
             }
-            if(!commingToEnd)
+            //printing the /|\ following its next command
+            if(!commingToEnd)//checks if programs is not near the end
             {
-
-              System.out.print( space + fill + "; " + stdVar + " \n")
+              System.out.print( space + fill + "; " + stdVar + " \n")//prints a fill with plotcmd
             }
             else
             {
-              System.out.print( space + fill + " \n")
+              System.out.print( space + fill + " \n")//print fill cmd onlt
             }
 
-            if(value[counter+2] == "end")
+            if(value[counter+2] == "end")// check if it == end
             {
-              tempVal = ""
+              tempVal = ""//so as to erase the ;plot_cmd since there is no front values to be evaluated
             }
-
+            //printing the /|\ following its next command
             System.out.print( space + "      / \n")
 
             System.out.print( space +  "fill " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + tempVal)
@@ -904,13 +896,13 @@ public class recognizer {
         }
 
 
-        if(value[counter+2].isEmpty())
+        if(value[counter+2].isEmpty())//checks if currentvalues + 2 == ""
         {
-          counter++
+          counter++//increments counter
         }
 
         counter = counter + 2
-        if ((counter + 1) == arrayLength || value[counter] == "end")
+        if ((counter + 1) == arrayLength || value[counter] == "end")//check if the program is near the end or if it has a next value to evaluate
         {
           reachEnd = true
         }
@@ -918,7 +910,7 @@ public class recognizer {
 
 
       }
-
+      //prints the final result
       System.out.print("\n\n to " + finalResult + " end \n\n")
 
     }
