@@ -404,64 +404,70 @@ public class recognizer {
 
   function print(value : String[]) : void {
     print("Printing Derevation ")
-    //removing the length -1 and removeing the count of to & end
+    //creating a counter from 1
     var counter = 1
+    //creating a arraylen of the value passed
     var arrayLength = value.length
-    var reachEnd = false
+    //cmd to use for the derivation
     var stdVar = "<plot_cmd>"
     var singleCmd = "<cmd>"
-    var currentValues = ""
-    var currentCmd = " "
-    var currentCmdValues = ""
     var holdersOfValues = {"<x>","<y>"}
-
     var vBar = "vbar <x><y>,<y>"
     var hBar = "hbar <x><y>,<x>"
     var fill = "fill <x><y>"
+    //holds current value
+    var currentValues = ""
+
+    //gets the final result to print the final output
     var finalResult = ""
+    // while the counter is less than the arraylength and it hasnd reachend the loop will continue
     var commingToEnd = false
+    var reachEnd = false
 
+    //prints before reaching the 'end'
     while (counter < arrayLength && !reachEnd ) {
-
+      //if not reachend
       if(!reachEnd)
       {
-        if (currentValues.isEmpty() )
+        if (currentValues.isEmpty() )// if the current value is empty prints the to plot_cmd end
         {
-          System.out.print("to " + finalResult + stdVar + " end \n")
+          System.out.print("to " + finalResult + stdVar + " end \n")// print finalresult and plot_cmd cmd
 
-          currentValues = singleCmd
-          currentCmdValues = singleCmd
+          currentValues = singleCmd//makes singlecmd = the currentvalue and currentCmdValues too
 
         }
 
-        else if (value[counter + 2] != "end")
+        else if (value[counter + 2] != "end")// else if the current value != to end
         {
-          currentValues = currentValues + ";" + singleCmd //check here
+          //append the cmd to currentValues
+          currentValues = currentValues + ";" + singleCmd
 
-          currentCmdValues = currentCmdValues + ";" + singleCmd
         }
         var temp = 0
-        if(value[counter + 2].isEmpty() )
+        if(value[counter + 2].isEmpty() )//check if the current value is empty and if yes temp = 1, so as to skip that value
           temp = 1
-        if(value[counter + temp + 2] == "end" || value[counter + 2].isEmpty() )
+
+        if(value[counter + temp + 2] == "end" || value[counter + 2].isEmpty() )// if current value == end or it is empty
         {
           commingToEnd = true
         }
 
-        if (finalResult.isEmpty() && arrayLength > 5)
+        if (finalResult.isEmpty() && arrayLength > 5)//if final result and arry length is less than 5 then the output is printed
         {
           System.out.print("to " + finalResult + singleCmd + "; " + stdVar + " end \n")
         }
 
         else
         {
-          if( value[counter + 2] != "end" && !commingToEnd && arrayLength > 5)
+          if( value[counter + 2] != "end" && !commingToEnd && arrayLength > 5)//if value counter +2 and arry length greater than 5 and not coming to end prints the cmd
           {
+            //print current values plus a plot_cmd
             System.out.print("to " + finalResult + singleCmd + "; " + stdVar + " end \n")
           }
 
           else
           {
+            //else print current values plus a cmd only
             commingToEnd = true
             System.out.print("to " + finalResult + singleCmd + " end \n")
           }
@@ -470,28 +476,27 @@ public class recognizer {
 
 
       }
-      switch (value[counter])
+      switch (value[counter])// checks  the current values for vbar | fill | hbar
       {
         case "hbar":
         {
           var tempy = 0
           var tempVal = "; <plot_cmd> "
 
-          if(value[counter + 2].isEmpty() )
+          if(value[counter + 2].isEmpty() )//chekck if it is empty and sets temp to 1
             tempy = 1
-          if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )
+          if(value[counter + tempy + 2] == "end" || value[counter + 2].isEmpty() )// check if it empty or == end
           {
-            tempVal = ""
+            tempVal = ""//so as to easer the ;plot_cmd since there is no front values to be evaluated
             commingToEnd = true
           }
 
-          currentCmd = currentCmd + hBar + "; "
-          if(!commingToEnd)
-            print("to " + finalResult + hBar + "; " + stdVar + " end")
+          if(!commingToEnd)// if not coming to the end
+            print("to " + finalResult + hBar + "; " + stdVar + " end")//print currents values of finalResult plus a hbar and a plot_cmd
           else
-            print("to " + finalResult + hBar + " end")
+            print("to " + finalResult + hBar + " end")//print currents values of finalResult plus a hbar
           var simpleCounter = 0
-
+          // print the cmd chars
             print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[0] + tempVal + " end")
           simpleCounter ++
             print("to " + finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[0] + tempVal + " end")
@@ -509,24 +514,23 @@ public class recognizer {
           var tempy = 0
           var tempVal = "; <plot_cmd> "
 
-          if(value[counter+2].isEmpty())
+          if(value[counter+2].isEmpty())// checks if it is not empty
             tempy = 1
 
 
-          if(value[counter + tempy + 2] == "end")
+          if(value[counter + tempy + 2] == "end")// check for end
           {
-            tempVal = ""
+            tempVal = ""//so as to easer the ;plot_cmd since there is no front values to be evaluated
             commingToEnd = true
           }
 
-          currentCmd = currentCmd + vBar + "; "
-
-          if(!commingToEnd)
-            print("to " + finalResult + vBar + "; " + stdVar + " end")
+          if(!commingToEnd)// check if not coming to end
+            print("to " + finalResult + vBar + "; " + stdVar + " end")//prints the finalResult with a vbar and plot_cmd
           else
-            print("to " + finalResult + vBar + " end")
+            print("to " + finalResult + vBar + " end")//else just prints the finalResult with a vbar
           var simpleCounter = 0
 
+          // print the cmd chart
           print("to " + finalResult + "vbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[1] + tempVal + " end")
           simpleCounter ++
           print("to " + finalResult + "vbar "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[1] + tempVal + " end")
@@ -545,16 +549,14 @@ public class recognizer {
           var simpleCounter = 0
           var tempVal = "; <plot_cmd> "
 
-          if(value[counter+2].isEmpty())
+          if(value[counter+2].isEmpty())//check if it is empty
             tempy = 1
 
-          if(value[counter + tempy + 2] == "end")
+          if(value[counter + tempy + 2] == "end")// check for end
           {
-            tempVal = ""
+            tempVal = ""//so as to easer the ;plot_cmd since there is no front values to be evaluated
             commingToEnd = true
           }
-
-          currentCmd = currentCmd + fill + "; "
 
           if(!commingToEnd)
             print("to " + finalResult + fill + "; " + stdVar + " end")
@@ -600,22 +602,25 @@ public class recognizer {
 
     function parse_tree(value : String[]) : void {
       print("Printing parse tree ")
-      //removing the length -1 and removeing the count of to & end
+      //creating a counter from 1
       var counter = 1
+      //array size
       var arrayLength = value.length
-      var reachEnd = false
-      var stdVar = "<plot_cmd>"
-      var singleCmd = "<cmd>"
+
+
       var currentValues = ""
       var currentCmd = " "
       var currentCmdValues = ""
-      var holdersOfValues = {"<x>","<y>"}
 
+      var holdersOfValues = {"<x>","<y>"}
+      var stdVar = "<plot_cmd>"
+      var singleCmd = "<cmd>"
       var vBar = "vbar <x><y>,<y>"
       var hBar = "hbar <x><y>,<x>"
       var fill = "fill <x><y>"
       var finalResult = ""
       var commingToEnd = false
+      var reachEnd = false
 
       while (counter < arrayLength && !reachEnd ) {
         var spacer = ""
