@@ -614,24 +614,34 @@ public class recognizer {
       var currentCmdValues = ""
       var holdersOfValues = {"<x>","<y>"}
 
-      var vBar = "vbar <x><y>,<y>"
-      var hBar = "hbar <x><y>,<x>"
-      var fill = "fill <x><y>"
+      var vBar = "vbar <x> <y>,<y>"
+      var hBar = "hbar <x> <y>,<x>"
+      var fill = "fill <x> <y>"
       var finalResult = ""
       var commingToEnd = false
 
       while (counter < arrayLength && !reachEnd ) {
+        var spacer = ""
+        var simpleSpacer = ""
+        if (counter > 1)
+        {
+          spacer = spacer + "\t"
+          simpleSpacer =  simpleSpacer + "\t"
+        }
 
         if(!reachEnd)
         {
+
+
           if (currentValues.isEmpty() )
           {
-            System.out.print("    <program>      \n")
-            System.out.print("  /     |    \\ \n")
-            System.out.print("to " + finalResult + stdVar + " end \n")
+            print("    <program>      \n")
+            print("  /     |    \\ \n")
+            print("to " + finalResult + stdVar + " end \n")
 
             currentValues = singleCmd
             currentCmdValues = singleCmd
+            //spacer = spacer + "\t"
 
           }
 
@@ -640,10 +650,12 @@ public class recognizer {
             currentValues = currentValues + ";" + singleCmd //check here
 
             currentCmdValues = currentCmdValues + ";" + singleCmd
+            //spacer = spacer + "\t"
           }
           var temp = 0
           if(value[counter + 2].isEmpty() )
             temp = 1
+
           if(value[counter + temp + 2] == "end" || value[counter + 2].isEmpty() )
           {
             commingToEnd = true
@@ -651,30 +663,29 @@ public class recognizer {
 
           if (finalResult.isEmpty() && arrayLength > 5)
           {
-            System.out.print(" \t  |  \n")
-            System.out.print("  " + finalResult + singleCmd + "; " + stdVar + "  \n")
-            System.out.print("   | \n")
+            System.out.print("\n" + spacer + "|  hy\n")
+            System.out.print( finalResult + singleCmd + "; " + stdVar + "  \n")
+            System.out.print("\n" + spacer + "|  \n")
           }
 
           else
           {
             if( value[counter + 2] != "end" && !commingToEnd && arrayLength > 5)
             {
-              System.out.print("    /    \  \\ \n")
-              System.out.print("  " + finalResult + singleCmd + "; " + stdVar + "\n")
-              System.out.print("  /     /   \  \\ \n")
+              System.out.print("\n" + spacer + " |     \n")
+              System.out.print(finalResult + singleCmd + "; " + stdVar + "\n")
+              System.out.print("\n" + spacer + " |     \n")
             }
 
             else
             {
-              System.out.print("       |     \n")
+              System.out.print("w " +  spacer + " \t     | \n")
               commingToEnd = true
-              System.out.print("     " + finalResult + singleCmd + "     \n")
-              System.out.print("       |     \n")
+              System.out.print(finalResult + singleCmd + "\n")
+              System.out.print(spacer + " \t      |  \n")
             }
 
           }
-
 
         }
         switch (value[counter])
@@ -693,28 +704,56 @@ public class recognizer {
             }
 
             currentCmd = currentCmd + hBar + "; "
+
+
+            var c = counter
             if(!commingToEnd)
             {
-              print(finalResult + hBar + "; " + stdVar + " \n")
-              print("      |     \n")
+              System.out.print(finalResult + hBar + "; " + stdVar + " \n")
+              print("te")
+              while (c > 0)
+              {
+                System.out.print("I\tI" )
+                c = c-2
+              }
+
+              System.out.print(" |\n")
 
             }
 
             else
             {
-              print(finalResult + hBar)
-              print("    |     \n")
+              System.out.print( finalResult + hBar + "\n")
+              while (c > 0)
+              {
+                System.out.print("\t" )
+                c = c-2
+              }
+              System.out.print("  |\n")
             }
             var simpleCounter = 0
 
-            print(finalResult + "hbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[0] + tempVal + "   ")
+
+
+            System.out.print(finalResult + "hbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[0] + tempVal + "\n")
             simpleCounter ++
-            System.out.print("  /     /   \  \\ \n")
-            print(finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[0] + tempVal)
+            c = counter
+            while (c > 0)
+            {
+              System.out.print(" \t " )
+              c = c-2
+            }
+            System.out.print( "  / \n")
+            System.out.print(finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[0] + tempVal+ "\n")
             simpleCounter ++
-            System.out.print("    /     /   \  \\ \n")
-            print( finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1)  + tempVal)
-            System.out.print("  /     /   \  \\ \n")
+            c = counter
+            while (c > 0)
+            {
+              System.out.print(" \t " )
+              c = c-2
+            }
+            System.out.print("    | \n")
+            print(finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + tempVal+ "\n")
             if ( value[counter + 2] == "end" || commingToEnd)
               finalResult = finalResult + "hbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1 ) + "," + value[counter + 1].charAt(simpleCounter + 1) + " "
             else
@@ -741,27 +780,24 @@ public class recognizer {
 
             if(!commingToEnd)
             {
-              System.out.print("  /     /   \  \\ \n")
-              print("to " + finalResult + vBar + "; " + stdVar + " end")
-              System.out.print("  /     /   \  \\ \n")
+              System.out.print("\n" + spacer + " |     \n")
+
+              System.out.print(finalResult + vBar + "; " + stdVar)
             }
-            else
-            {
-              System.out.print(" /     /   \  \\ \n")
-              print("   " + finalResult + vBar + "   ")
-              System.out.print("  /     /   \  \\ \n")
+            else {
+              System.out.print(finalResult + vBar + "   ")
+              System.out.print("\n" + spacer + " |     \n")
 
             }
             var simpleCounter = 0
 
-            print(finalResult + "vbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[1] + tempVal )
+            System.out.print(finalResult + "vbar " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + "," + holdersOfValues[1] + tempVal)
             simpleCounter ++
-            System.out.print("   /     /   \  \\ \n")
-            print(finalResult + "vbar "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[1] + tempVal)
+            System.out.print( spacer + "| \n")
+            System.out.print(finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + "," + holdersOfValues[1] + tempVal)
             simpleCounter ++
-            System.out.print("   /     /   \  \\ \n")
-            print( finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + tempVal )
-            System.out.print("\t\t  /     /   \  \\ \n")
+            System.out.print("\n" + spacer + "  | \n")
+            System.out.print(finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1) + tempVal)
             if ( value[counter + 2] == "end" || commingToEnd)
               finalResult = finalResult + "vbar " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1) + "," + value[counter + 1].charAt(simpleCounter + 1)
             else
@@ -788,22 +824,22 @@ public class recognizer {
 
             if(!commingToEnd)
             {
-              print(finalResult + fill + "; " + stdVar )
+              System.out.print(finalResult + fill + "; " + stdVar)
             }
             else
             {
-              print(finalResult + fill)
+              System.out.print(finalResult + fill)
             }
 
             if(value[counter+2] == "end")
             {
               tempVal = ""
             }
-            System.out.print("      | \n")
-            print(finalResult + "fill " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + tempVal )
+            System.out.print("\n" + spacer + "      | \n")
+            System.out.print(finalResult + "fill " + value[counter + 1].charAt(simpleCounter) + holdersOfValues[1] + tempVal)
             simpleCounter ++
-            System.out.print("       |  \n")
-            print( finalResult + "fill "  + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + tempVal)
+            System.out.print("\n" + spacer + "       |  \n")
+            System.out.print(finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 1) + value[counter + 1].charAt(simpleCounter) + tempVal)
             simpleCounter ++
             if ( value[counter + 2] == "end" || commingToEnd)
               finalResult = finalResult + "fill " + value[counter + 1].charAt(simpleCounter - 2) + value[counter + 1].charAt(simpleCounter - 1)
@@ -815,6 +851,7 @@ public class recognizer {
             print("")
         }
 
+
         if(value[counter+2].isEmpty())
         {
           counter++
@@ -825,6 +862,8 @@ public class recognizer {
         {
           reachEnd = true
         }
+
+
 
       }
 
