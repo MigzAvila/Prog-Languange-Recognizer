@@ -404,11 +404,9 @@ public class recognizer {
 
   function print(value : String[]) : void {
     print("Printing Derevation ")
-    var val = value
     //removing the length -1 and removeing the count of to & end
     var counter = 1
     var arrayLength = value.length
-    var len = value.length - 1
     var reachEnd = false
     var stdVar = "<plot_cmd>"
     var singleCmd = "<cmd>"
@@ -601,11 +599,10 @@ public class recognizer {
 
 
     function parse_tree(value : String[]) : void {
-      print("Printing Derevation ")
+      print("Printing parse tree ")
       //removing the length -1 and removeing the count of to & end
       var counter = 1
       var arrayLength = value.length
-      var len = value.length - 1
       var reachEnd = false
       var stdVar = "<plot_cmd>"
       var singleCmd = "<cmd>"
@@ -631,8 +628,6 @@ public class recognizer {
 
         if(!reachEnd)
         {
-
-
           if (currentValues.isEmpty() )
           {
             print("    <program>     ")
@@ -641,7 +636,6 @@ public class recognizer {
 
             currentValues = singleCmd
             currentCmdValues = singleCmd
-            //spacer = spacer + "\t"
 
           }
 
@@ -650,7 +644,6 @@ public class recognizer {
             currentValues = currentValues + ";" + singleCmd //check here
 
             currentCmdValues = currentCmdValues + ";" + singleCmd
-            //spacer = spacer + "\t"
           }
           var temp = 0
           if(value[counter + 2].isEmpty() )
