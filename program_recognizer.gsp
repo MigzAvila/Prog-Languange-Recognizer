@@ -24,8 +24,91 @@ var breaksProgram = false
 //testing class
 public class recognizer {
 
+
+  //function MAIN
+  function MAIN() : void {
+
+//prints commands
+    print(program)
+    print(plot_cmd)
+    print(cmd)
+    print(x)
+    print(y)
+    print(good_exm)
+    print(bad_exm)
+
+    print("Your Turn Now: \n")
+
+//scan for input
+    var sc = new Scanner(new InputStreamReader(System.in))
+    var str = sc.nextLine();              //reads string
+    var isWhiteSpace = str.split(" ")
+
+
+
+//call MAIN function
+//create a while loop ...
+    var result = false
+    if (str != "STOP") {
+      result = validator(str)
+      if (result) {
+        print_derevation(str.split("\\s"))
+        parse_tree(str.split("\\s"))
+      }
+    }
+
+
+    while (str != "STOP") {
+      if (isWhiteSpace.length < 4) {
+        print("\n\n")
+        print("Error! ")
+        print("Incomplete program Statement: ")
+        print(str)
+        print("Accepted program Statement as follow: ")
+        print(program)
+        print(cmd)
+        print(x)
+        print(y)
+        print(good_exm + "\n")
+        print("\n\n\n")
+      }
+
+      print("Enter STOP to stop the program or a string to continue using the program. :) \n")
+      print(program)
+      print(plot_cmd)
+      print(cmd + "\n")
+      print(x)
+      print(y + "\n")
+      print(good_exm)
+      print(bad_exm + "\n")
+
+
+      prevHasSemiColon = true
+      errorForNum = false
+      passesValidation = true
+
+      breaksProgram = false
+      print("Your Turn Now: \n")
+      str = sc.nextLine();              //reads string
+      isWhiteSpace = str.split(" ")
+      if (str != "STOP" || isWhiteSpace.length != 0) {
+        result = validator(str)
+        print("\n\n")
+        if (result) {
+          print_derevation(str.split("\\s"))
+          parse_tree(str.split("\\s"))
+        }
+
+      }
+
+    }
+  }
+
+
+
+
   //change to validate input cmd
-  function MAIN(value : String) : boolean {
+  function validator(value : String) : boolean {
 
     print("\n")
 
@@ -402,7 +485,7 @@ public class recognizer {
     return false
   }
 
-  function print(value : String[]) : void {
+  function print_derevation(value : String[]) : void {
     print("Printing Derevation ")
     //creating a counter from 1
     var counter = 1
@@ -917,86 +1000,8 @@ public class recognizer {
 }
 
 
-
-
-//prints commands
-print(program)
-print(plot_cmd)
-print(cmd)
-print(x)
-print(y)
-print(good_exm)
-print(bad_exm)
-
-print("Your Turn Now: \n")
-
-//scan for input
-var sc = new Scanner( new InputStreamReader( System.in ) )
-var str= sc.nextLine();              //reads string
-var isWhiteSpace = str.split(" ")
-
 //create an instance of recognizer class
 var program_recognizer = new recognizer()
+program_recognizer.MAIN()
 
-//call MAIN function
-//create a while loop ...
-var result = false
-if(str !=  "STOP" )
-{
-  result = program_recognizer.MAIN(str)
-  if(result)
-  {
-    program_recognizer.print(str.split("\\s"))
-    program_recognizer.parse_tree(str.split("\\s"))
-  }
-}
-
-
-while (str !=  "STOP" )
-{
-  if (isWhiteSpace.length < 4)
-  {
-    print("\n\n")
-    print("Error! ")
-    print("Incomplete program Statement: ")
-    print(str)
-    print("Accepted program Statement as follow: ")
-    print(program)
-    print(cmd)
-    print(x)
-    print(y)
-    print(good_exm + "\n")
-    print("\n\n\n")
-  }
-
-  print("Enter STOP to stop the program or a string to continue using the program. :) \n")
-  print(program)
-  print(plot_cmd)
-  print(cmd + "\n")
-  print(x)
-  print(y + "\n")
-  print(good_exm)
-  print(bad_exm + "\n")
-
-
-  prevHasSemiColon = true
-  errorForNum = false
-  passesValidation = true
-
-  breaksProgram = false
-  print("Your Turn Now: \n")
-  str= sc.nextLine();              //reads string
-  isWhiteSpace = str.split(" ")
-  if (str !=  "STOP" || isWhiteSpace.length != 0) {
-    result = program_recognizer.MAIN(str)
-    print("\n\n")
-    if(result)
-    {
-      program_recognizer.print(str.split("\\s"))
-      program_recognizer.parse_tree(str.split("\\s"))
-    }
-
-  }
-
-}
 
