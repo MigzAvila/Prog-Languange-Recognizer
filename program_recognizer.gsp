@@ -481,7 +481,25 @@ public class recognizer {
         return false
       }
     }
-    print("NEVER REACH HERE")
+    print("\n\n")
+    print("Error! ")
+    print("Invalid program Statement: ")
+    System.out.print("\nto ")
+    for (val in value)
+    {
+      System.out.print(val + " ")
+    }
+    System.out.print("end \n\n")
+
+    print("Accepted program Statement as follow: ")
+    print(program)
+    print(cmd)
+    print(x)
+    print(y)
+    print(good_exm + "\n")
+    print("\n\n\n")
+    breaksProgram = true
+    passesValidation = false
     return false
   }
 
