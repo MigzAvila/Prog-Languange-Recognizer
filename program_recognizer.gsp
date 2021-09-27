@@ -29,6 +29,9 @@ public class recognizer {
   function MAIN() : void {
 
 //prints commands
+    print("******************************************************* ")
+    print("\t\t BNF grammar ")
+    print("******************************************************* ")
     print(program)
     print(plot_cmd)
     print(cmd)
@@ -74,6 +77,9 @@ public class recognizer {
       }
 
       print("Enter STOP to stop the program or a string to continue using the program. :) \n")
+      print("\n******************************************************* ")
+      print("\t\t BNF grammar ")
+      print("*******************************************************\n ")
       print(program)
       print(plot_cmd)
       print(cmd + "\n")
@@ -504,7 +510,9 @@ public class recognizer {
   }
 
   function print_derivation(value : String[]) : void {
-    print("Printing Derevation ")
+    print("******************************************************* ")
+    print("\t\tPrinting Derevation ")
+    print("*******************************************************\n")
     //creating a counter from 1
     var counter = 1
     //creating a arraylen of the value passed
@@ -702,7 +710,9 @@ public class recognizer {
 
 
     function parse_tree(value : String[]) : void {
-      print("Printing parse tree ")
+      print("******************************************************* ")
+      print("\t\tPrinting parse tree ")
+      print("******************************************************* ")
       //creating a counter from 1
       var counter = 1
       //array size
