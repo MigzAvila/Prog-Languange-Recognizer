@@ -52,7 +52,7 @@ public class recognizer {
     if (str != "STOP") {
       result = validator(str)
       if (result) {
-        print_derevation(str.split("\\s"))
+        print_derivation(str.split("\\s"))
         parse_tree(str.split("\\s"))
       }
     }
@@ -95,7 +95,7 @@ public class recognizer {
         result = validator(str)
         print("\n\n")
         if (result) {
-          print_derevation(str.split("\\s"))
+          print_derivation(str.split("\\s"))
           parse_tree(str.split("\\s"))
         }
 
@@ -503,7 +503,7 @@ public class recognizer {
     return false
   }
 
-  function print_derevation(value : String[]) : void {
+  function print_derivation(value : String[]) : void {
     print("Printing Derevation ")
     //creating a counter from 1
     var counter = 1
@@ -910,7 +910,7 @@ public class recognizer {
             {
               //printing the /|\ following its next command
               System.out.print(space + vBar + "; " + stdVar + "\n")
-              System.out.print(space + "   | \n")
+              System.out.print(space + "      / \n")
             }
             else {
               //printing the /|\ following its next command
